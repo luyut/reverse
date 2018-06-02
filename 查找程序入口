@@ -1,1 +1,19 @@
+首先要明白无论是没有  代码优化  的debug版本，
+还是要检索release版本，都需要ida的配合。
+首先在ida查看main的大致位置和上下函数，再放入gdb查找
 
+0x100
+程序入口是指主函数main的入口，根据栈桢知识，既然是个函数，就有参数，要先入栈
+
+以VC为例，VC的main需要三个参数
+形如
+
+mov edx ,dword ptr [_environ]
+push edx
+mov eax ,dword ptr [_argv]
+push eax
+mov ecx ,dword ptr [_argc]
+push ecx
+call 00401005
+
+在大致位置看到此3个push和1个call就可以进入仔细判断
